@@ -1,5 +1,6 @@
 package de.haukeschebitz.pokeapp.domain
 
+import android.util.Log
 import de.haukeschebitz.pokeapp.common.Error
 import de.haukeschebitz.pokeapp.common.Result
 import de.haukeschebitz.pokeapp.data.PokeApi
@@ -19,9 +20,11 @@ class PokemonRepositoryImpl(
         return pokeApi.getPokemon(id)
             .fold(
                 onSuccess = {
+                    Log.d("PokemonRepositoryImpl", "getPokemon: $it")
                     Result.Success(it.toDomain())
                 },
                 onFailure = { exception, message ->
+                    Log.e("PokemonRepositoryImpl", "getPokemon: $exception")
                     Result.Error(Error.UnknownError(exception))
                 },
             )

@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import de.haukeschebitz.pokeapp.common.Error
 import de.haukeschebitz.pokeapp.common.Result
 import de.haukeschebitz.pokeapp.domain.PokemonRepository
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -19,7 +18,7 @@ class MainScreenViewModel(
 
     init {
         viewModelScope.launch {
-            when (val result = repository.getPokemon(0)) {
+            when (val result = repository.getPokemon(1)) {
                 is Result.Success -> {
                     _uiState.value = MainScreenUiState.Success(result.data.name)
                 }
