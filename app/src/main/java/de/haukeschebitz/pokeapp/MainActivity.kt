@@ -14,8 +14,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             PokeAppTheme {
