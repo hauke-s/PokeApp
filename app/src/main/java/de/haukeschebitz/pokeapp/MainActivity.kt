@@ -7,13 +7,17 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import de.haukeschebitz.pokeapp.presentation.MainScreen
-import de.haukeschebitz.pokeapp.presentation.MainScreenViewModel
+import androidx.navigation3.runtime.entry
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
+import de.haukeschebitz.pokeapp.navigation.Route
+import de.haukeschebitz.pokeapp.presentation.detail.DetailScreen
+import de.haukeschebitz.pokeapp.presentation.main.MainScreen
+import de.haukeschebitz.pokeapp.presentation.main.MainScreenActions
+import de.haukeschebitz.pokeapp.presentation.main.MainScreenViewModel
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -24,15 +28,34 @@ class MainActivity : ComponentActivity() {
 
         enableEdgeToEdge()
         setContent {
+            val backstack = rememberNavBackStack(Route.Main)
+
             PokeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
-                    val mainScreenViewModel: MainScreenViewModel by viewModel()
-                    val state = mainScreenViewModel.uiState.collectAsStateWithLifecycle().value
-                    MainScreen(
-                        modifier = Modifier.padding(innerPadding),
-                        state = state,
+                    NavDisplay(
+                        backStack = backstack,
+                        onBack = { backstack.removeLastOrNull() },
+                        entryProvider = entryProvider {
+                            entry<Route.Main> {
+                                val mainScreenViewModel: MainScreenViewModel by viewModel()
+                                val state = mainScreenViewModel.uiState.collectAsStateWithLifecycle().value
+                                MainScreen(
+                                    modifier = Modifier.padding(innerPadding),
+                                    state = state,
+                                    actions = MainScreenActions(
+                                        onShowDetailScreen = { backstack.add(Route.Detail(it)) }
+                                    )
+                                )
+                            }
+
+                            entry<Route.Detail> {
+                                println("pokemon ID = ${it.pokemonId}")
+                                DetailScreen()
+                            }
+                        },
                     )
+
                 }
             }
         }

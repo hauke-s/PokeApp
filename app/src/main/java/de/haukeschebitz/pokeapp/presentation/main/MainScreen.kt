@@ -1,9 +1,10 @@
-package de.haukeschebitz.pokeapp.presentation
+package de.haukeschebitz.pokeapp.presentation.main
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -16,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun MainScreen(
     modifier: Modifier = Modifier,
     state: MainScreenUiState,
+    actions: MainScreenActions,
 ) {
 
     Surface(modifier = modifier.fillMaxSize()) {
@@ -27,7 +29,14 @@ fun MainScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Text(text = state.data)
+                    Column {
+                        Text(text = state.data)
+                        Button(
+                            onClick = { actions.onShowDetailScreen(0) }
+                        ) {
+                            Text("Show detail screen")
+                        }
+                    }
                 }
             }
         }
@@ -64,17 +73,26 @@ private fun MainScreenLoading(
 @Preview
 @Composable
 private fun MainScreenLoadingPreview() {
-    MainScreen(state = MainScreenUiState.Loading)
+    MainScreen(
+        state = MainScreenUiState.Loading,
+        actions = MainScreenActions(),
+    )
 }
 
 @Preview
 @Composable
 private fun MainScreenErrorPreview() {
-    MainScreen(state = MainScreenUiState.Error(message = "Unknown error occurred"))
+    MainScreen(
+        state = MainScreenUiState.Error(message = "Unknown error occurred"),
+        actions = MainScreenActions(),
+    )
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
-    MainScreen(state = MainScreenUiState.Success("Pikachu"))
+    MainScreen(
+        state = MainScreenUiState.Success("Pikachu"),
+        actions = MainScreenActions(),
+    )
 }

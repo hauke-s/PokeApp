@@ -1,4 +1,4 @@
-package de.haukeschebitz.pokeapp.presentation
+package de.haukeschebitz.pokeapp.presentation.main
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

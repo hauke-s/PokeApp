@@ -1,4 +1,4 @@
-package de.haukeschebitz.pokeapp.presentation
+package de.haukeschebitz.pokeapp.presentation.main
 
 sealed interface MainScreenUiState {
     data object Loading : MainScreenUiState
