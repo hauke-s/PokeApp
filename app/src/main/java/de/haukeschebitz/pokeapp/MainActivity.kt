@@ -11,7 +11,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import de.haukeschebitz.pokeapp.presentation.MainScreen
+import de.haukeschebitz.pokeapp.presentation.MainScreenViewModel
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ComponentActivity() {
 
@@ -22,10 +25,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             PokeAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+
+                    val mainScreenViewModel: MainScreenViewModel by viewModel()
+                    mainScreenViewModel.let {
+                        println("Viewmodel started")
+                    }
+                    MainScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }

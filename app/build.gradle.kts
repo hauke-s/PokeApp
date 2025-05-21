@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "de.haukeschebitz.pokeapp"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "de.haukeschebitz.pokeapp"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 

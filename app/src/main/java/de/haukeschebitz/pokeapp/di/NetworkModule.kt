@@ -10,7 +10,9 @@ import kotlinx.serialization.json.Json
 import org.koin.dsl.module
 
 val networkModule = module {
-    factory<PokeApi> { PokeApiImpl() }
+    factory<PokeApi> { PokeApiImpl(
+        client = get(),
+    ) }
 
     single {
         HttpClient(Android) {
