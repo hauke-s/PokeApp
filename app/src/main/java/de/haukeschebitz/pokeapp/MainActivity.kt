@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.haukeschebitz.pokeapp.presentation.MainScreen
 import de.haukeschebitz.pokeapp.presentation.MainScreenViewModel
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
@@ -27,28 +28,13 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
                     val mainScreenViewModel: MainScreenViewModel by viewModel()
-                    mainScreenViewModel.let {
-                        println("Viewmodel started")
-                    }
-                    MainScreen(modifier = Modifier.padding(innerPadding))
+                    val state = mainScreenViewModel.uiState.collectAsStateWithLifecycle().value
+                    MainScreen(
+                        modifier = Modifier.padding(innerPadding),
+                        state = state,
+                    )
                 }
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PokeAppTheme {
-        Greeting("Android")
     }
 }
