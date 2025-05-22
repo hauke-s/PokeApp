@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
@@ -12,6 +13,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import de.haukeschebitz.pokeapp.domain.model.Pokemon
+import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
+import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItem
 
 @Composable
 fun MainScreen(
@@ -29,13 +33,25 @@ fun MainScreen(
                     modifier = Modifier.fillMaxSize(),
                     contentAlignment = Alignment.Center,
                 ) {
-                    Column {
-                        Text(text = state.data)
+                    Column(
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center,
+                    ) {
                         Button(
                             onClick = { actions.onShowDetailScreen(0) }
                         ) {
                             Text("Show detail screen")
                         }
+
+                        Carousel(
+                            modifier = Modifier.fillMaxWidth(),
+                            items = state.popularPokemon.map {
+                                CarouselItem(
+                                    title = it.name,
+                                    imageUrl = it.imageUrl,
+                                )
+                            }
+                        )
                     }
                 }
             }
@@ -92,7 +108,11 @@ private fun MainScreenErrorPreview() {
 @Composable
 private fun MainScreenPreview() {
     MainScreen(
-        state = MainScreenUiState.Success("Pikachu"),
+        state = MainScreenUiState.Success(
+            popularPokemon = listOf(
+                Pokemon(0, "Pikachu", imageUrl = ""),
+            )
+        ),
         actions = MainScreenActions(),
     )
 }

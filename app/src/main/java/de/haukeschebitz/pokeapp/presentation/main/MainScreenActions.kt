@@ -1,5 +1,5 @@
 package de.haukeschebitz.pokeapp.presentation.main
 
 data class MainScreenActions(
-    val onShowDetailScreen: (pokemonId: Int) -> Unit = {},
+    val onShowDetailScreen: (eventId: Int) -> Unit = {},
 )

@@ -13,13 +13,15 @@ import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
-import de.haukeschebitz.pokeapp.navigation.Route
 import de.haukeschebitz.pokeapp.presentation.detail.DetailScreen
+import de.haukeschebitz.pokeapp.presentation.detail.DetailScreenViewModel
 import de.haukeschebitz.pokeapp.presentation.main.MainScreen
 import de.haukeschebitz.pokeapp.presentation.main.MainScreenActions
 import de.haukeschebitz.pokeapp.presentation.main.MainScreenViewModel
+import de.haukeschebitz.pokeapp.ui.navigation.Route
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
 
@@ -50,8 +52,10 @@ class MainActivity : ComponentActivity() {
                             }
 
                             entry<Route.Detail> {
-                                println("pokemon ID = ${it.pokemonId}")
-                                DetailScreen()
+                                val detailScreenViewModel: DetailScreenViewModel by viewModel { parametersOf(it.eventId) }
+                                val state = detailScreenViewModel.uiState.collectAsStateWithLifecycle().value
+
+                                DetailScreen(state = state)
                             }
                         },
                     )

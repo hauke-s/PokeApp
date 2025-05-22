@@ -1,4 +1,4 @@
-package de.haukeschebitz.pokeapp.navigation
+package de.haukeschebitz.pokeapp.ui.navigation
 
 import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
@@ -9,5 +9,5 @@ sealed interface Route : NavKey {
     data object Main : Route
 
     @Serializable
-    data class Detail(val pokemonId: Int) : Route
+    data class Detail(val eventId: Int) : Route
 }
