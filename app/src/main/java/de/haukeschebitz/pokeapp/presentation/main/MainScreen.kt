@@ -15,7 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
 import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
-import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItem
+import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItemUiState
 
 @Composable
 fun MainScreen(
@@ -46,7 +46,7 @@ fun MainScreen(
                         Carousel(
                             modifier = Modifier.fillMaxWidth(),
                             items = state.popularPokemon.map {
-                                CarouselItem(
+                                CarouselItemUiState(
                                     title = it.name,
                                     imageUrl = it.imageUrl,
                                 )

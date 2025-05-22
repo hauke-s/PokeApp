@@ -1,6 +1,6 @@
 package de.haukeschebitz.pokeapp.ui.component.carousel
 
-data class CarouselItem(
+data class CarouselItemUiState(
     val title: String,
     val imageUrl: String? = null,
 )
