@@ -16,20 +16,22 @@ class MockEventLocalDataSourceImpl : EventLocalDataSource {
             name = "Event 0",
             dateTimestamp = System.currentTimeMillis(),
             location = "Hamburg",
-            imageUrl = "",
+            imageUrl = "https://wallpapercave.com/wp/wp10311653.jpg",
             duels = persistentListOf(
                 Duel(Pokemon(0, "Pikachu"), Pokemon(1, "Pika")),
             ),
+            isFeatured = false
         ),
         Event(
             id = 1,
             name = "Event 1",
             dateTimestamp = System.currentTimeMillis(),
             location = "Köln",
-            imageUrl = "",
+            imageUrl = "https://wallpapercave.com/wp/wp10311653.jpg",
             duels = persistentListOf(
                 Duel(Pokemon(0, "Relaxo"), Pokemon(1, "Pikachu")),
             ),
+            isFeatured = true
         )
     )
 }

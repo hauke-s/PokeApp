@@ -6,6 +6,7 @@ import de.haukeschebitz.pokeapp.domain.model.Event
 interface EventRepository {
     suspend fun getEvent(eventId: Int): Event?
     suspend fun getEventList(): List<Event>
+    suspend fun getFeaturedEvent(): Event?
 }
 
 class EventRepositoryImpl(
@@ -18,6 +19,10 @@ class EventRepositoryImpl(
 
     override suspend fun getEventList(): List<Event> {
         return localDataSource.eventList
+    }
+
+    override suspend fun getFeaturedEvent(): Event? {
+        return localDataSource.eventList.firstOrNull { it.isFeatured }
     }
 
 }

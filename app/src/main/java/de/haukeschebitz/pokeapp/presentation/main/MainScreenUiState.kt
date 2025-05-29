@@ -9,6 +9,7 @@ sealed interface MainScreenUiState {
     data object Loading : MainScreenUiState
     data class Error(val message: String) : MainScreenUiState
     data class Success(
+        val featuredEvent: Event?,
         val events: PersistentList<Event> = persistentListOf(),
         val popularPokemon: PersistentList<Pokemon> = persistentListOf(),
     ) : MainScreenUiState

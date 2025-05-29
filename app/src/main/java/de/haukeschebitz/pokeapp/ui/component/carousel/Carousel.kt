@@ -52,7 +52,7 @@ private fun CarouselItem(
     Card(
         modifier = modifier
             .aspectRatio(1f),
-        shape = RoundedCornerShape(16.dp),
+        shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(
             containerColor = Color.DarkGray
         ),

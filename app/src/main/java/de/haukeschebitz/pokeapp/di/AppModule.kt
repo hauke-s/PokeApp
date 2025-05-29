@@ -6,6 +6,8 @@ import de.haukeschebitz.pokeapp.domain.EventRepository
 import de.haukeschebitz.pokeapp.domain.EventRepositoryImpl
 import de.haukeschebitz.pokeapp.domain.GetEventsThisWeekUseCase
 import de.haukeschebitz.pokeapp.domain.GetEventsThisWeekUseCaseImpl
+import de.haukeschebitz.pokeapp.domain.GetFeaturedEventUseCase
+import de.haukeschebitz.pokeapp.domain.GetFeaturedEventUseCaseImpl
 import de.haukeschebitz.pokeapp.domain.GetPopularPokemonUseCase
 import de.haukeschebitz.pokeapp.domain.GetPopularPokemonUseCaseImpl
 import de.haukeschebitz.pokeapp.domain.PokemonRepository
@@ -40,6 +42,12 @@ val appModule = module {
 
     factory<GetEventsThisWeekUseCase> {
         GetEventsThisWeekUseCaseImpl(
+            eventRepository = get()
+        )
+    }
+
+    factory<GetFeaturedEventUseCase> {
+        GetFeaturedEventUseCaseImpl(
             eventRepository = get()
         )
     }
