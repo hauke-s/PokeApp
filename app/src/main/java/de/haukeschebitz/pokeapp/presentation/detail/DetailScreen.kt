@@ -26,7 +26,7 @@ fun DetailScreen(
             verticalArrangement = Arrangement.Center,
         ) {
             state.duels.forEach {
-                Text(text = "${it.pokemon.name} VS ${it.pokemon2.name}")
+                Text(text = "${it.pokemon1.name} VS ${it.pokemon2.name}")
             }
         }
     }

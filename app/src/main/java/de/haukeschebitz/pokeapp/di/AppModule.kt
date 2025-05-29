@@ -16,6 +16,9 @@ import de.haukeschebitz.pokeapp.domain.PokemonRepository
 import de.haukeschebitz.pokeapp.domain.PokemonRepositoryImpl
 import de.haukeschebitz.pokeapp.presentation.detail.DetailScreenViewModel
 import de.haukeschebitz.pokeapp.presentation.main.MainScreenViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
@@ -34,6 +37,7 @@ val appModule = module {
             localDataSource = get(),
             remoteDataSource = get(),
             pokemonRepository = get(),
+            coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
         )
     }
 

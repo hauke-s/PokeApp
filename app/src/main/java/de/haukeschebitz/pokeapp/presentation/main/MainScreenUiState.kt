@@ -1,6 +1,5 @@
 package de.haukeschebitz.pokeapp.presentation.main
 
-import de.haukeschebitz.pokeapp.domain.model.Event
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
 import de.haukeschebitz.pokeapp.ui.component.featuredEvent.EventUiState
 import kotlinx.collections.immutable.PersistentList

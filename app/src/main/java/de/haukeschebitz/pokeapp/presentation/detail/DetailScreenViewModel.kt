@@ -3,8 +3,8 @@ package de.haukeschebitz.pokeapp.presentation.detail
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.haukeschebitz.pokeapp.domain.EventRepository
-import kotlinx.collections.immutable.immutableListOf
 import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -28,7 +28,7 @@ class DetailScreenViewModel(
 
     private suspend fun loadData() {
         eventRepository.getEvent(eventId)?.duels?.let { duels ->
-            _uiState.update { DetailScreenUiState(duels) }
+            _uiState.update { DetailScreenUiState(duels.toPersistentList()) }
         }
     }
 }

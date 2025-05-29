@@ -4,6 +4,6 @@ import androidx.compose.runtime.Immutable
 
 @Immutable
 data class Duel(
-    val pokemon: Pokemon,
+    val pokemon1: Pokemon,
     val pokemon2: Pokemon,
 )
