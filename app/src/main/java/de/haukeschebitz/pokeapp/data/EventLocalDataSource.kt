@@ -14,7 +14,7 @@ class MockEventLocalDataSourceImpl : EventLocalDataSource {
         Event(
             id = 0,
             name = "Event 0",
-            dateTimestamp = 0,
+            dateTimestamp = System.currentTimeMillis(),
             location = "Hamburg",
             imageUrl = "",
             duels = persistentListOf(
@@ -24,7 +24,7 @@ class MockEventLocalDataSourceImpl : EventLocalDataSource {
         Event(
             id = 1,
             name = "Event 1",
-            dateTimestamp = 0,
+            dateTimestamp = System.currentTimeMillis(),
             location = "Köln",
             imageUrl = "",
             duels = persistentListOf(

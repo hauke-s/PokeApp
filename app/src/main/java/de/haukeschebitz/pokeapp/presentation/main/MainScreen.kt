@@ -14,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import de.haukeschebitz.pokeapp.domain.model.Event
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
 import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
 import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItemUiState
@@ -42,7 +43,7 @@ fun MainScreen(
                     contentAlignment = Alignment.Center,
                 ) {
                     Column(
-                        horizontalAlignment = Alignment.CenterHorizontally,
+                        horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.Center,
                     ) {
                         Button(
@@ -51,6 +52,8 @@ fun MainScreen(
                             Text("Show detail screen")
                         }
 
+                        EventsThisWeekSection(state.events)
+
                         PopularPokemonSection(state.popularPokemon)
                     }
                 }
@@ -58,6 +61,39 @@ fun MainScreen(
         }
     }
 
+}
+
+@Composable
+private fun EventsThisWeekSection(
+    events: PersistentList<Event>,
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.Start,
+        verticalArrangement = Arrangement.Center,
+    ) {
+        Text(
+            text = "Events this week",
+            color = Color.White,
+        )
+
+        if (events.isNotEmpty()) {
+            Carousel(
+                modifier = Modifier.fillMaxWidth(),
+                items = events.map {
+                    CarouselItemUiState(
+                        title = it.name,
+                        imageUrl = it.imageUrl,
+                    )
+                }.toPersistentList()
+            )
+        } else {
+            Text(
+                text = "No events scheduled for this week",
+                color = Color.White,
+            )
+        }
+    }
 }
 
 @Composable
