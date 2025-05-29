@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.haukeschebitz.pokeapp.common.Error
 import de.haukeschebitz.pokeapp.common.Result
-import de.haukeschebitz.pokeapp.domain.GetEventsThisWeekUseCase
+import de.haukeschebitz.pokeapp.domain.GetEventsForCurrentWeekUseCase
 import de.haukeschebitz.pokeapp.domain.GetFeaturedEventUseCase
 import de.haukeschebitz.pokeapp.domain.GetPopularPokemonUseCase
 import de.haukeschebitz.pokeapp.ui.component.featuredEvent.toUiState
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.stateIn
 class MainScreenViewModel(
     private val getFeaturedEventUseCase: GetFeaturedEventUseCase,
     private val getPopularPokemonUseCase: GetPopularPokemonUseCase,
-    private val getEventsThisWeekUseCase: GetEventsThisWeekUseCase,
+    private val getEventsForCurrentWeekUseCase: GetEventsForCurrentWeekUseCase,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<MainScreenUiState> = MutableStateFlow(MainScreenUiState.Loading)
@@ -30,7 +30,7 @@ class MainScreenViewModel(
     private suspend fun loadData() {
         val deferredFeaturedEvent = viewModelScope.async { getFeaturedEventUseCase.invoke() }
         val deferredPokemon = viewModelScope.async { getPopularPokemonUseCase.invoke() }
-        val deferredEvents = viewModelScope.async { getEventsThisWeekUseCase.invoke() }
+        val deferredEvents = viewModelScope.async { getEventsForCurrentWeekUseCase.invoke() }
 
         val fetchedFeaturedEvent = deferredFeaturedEvent.await()
         val fetchedPokemon = deferredPokemon.await()
@@ -50,7 +50,7 @@ class MainScreenViewModel(
             val message = when (val errorType = (errorResult as Result.Error).error) {
                 is Error.ApiError -> errorType.message
                 Error.NoInternet -> "Failed to load $dataSourceName: Please ensure the device is connected to the internet."
-                is Error.UnknownError -> "Failed to load $dataSourceName: An unknown error occurred. Please share logs with support."
+                is Error.UnknownError -> "Failed to load $dataSourceName: An unknown error occurred. Please share logs with support. ${errorType.throwable}"
             }
             _uiState.value = MainScreenUiState.Error(message)
         } else {

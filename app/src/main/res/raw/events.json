@@ -1,0 +1,144 @@
+[
+  {
+    "id": 0,
+    "title": "Kanto Classic Tourtitlent",
+    "date_timestamp": 1748558400000,
+    "location": "Viridian City Gym",
+    "image_url": "https://placehold.co/600x400/AACCFF/000000/png?text=Kanto+Classic",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Opening Ceremony Match"
+      }
+    ],
+    "is_featured": true
+  },
+  {
+    "id": 1,
+    "title": "Johto Festival of Duels",
+    "date_timestamp": 1748644800000,
+    "location": "Goldenrod City Arena",
+    "image_url": "https://placehold.co/600x400/FFDDAA/000000/png?text=Johto+Festival",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Rookie Challenge"
+      },
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Eeveelution Showcase"
+      }
+    ],
+    "is_featured": false
+  },
+  {
+    "id": 2,
+    "title": "Hoenn Sky Pillar Challenge",
+    "date_timestamp": 1748731200000,
+    "location": "Sky Pillar Summit",
+    "image_url": "https://placehold.co/600x400/AAFFCC/000000/png?text=Sky+Pillar",
+    "duels": [],
+    "is_featured": true
+  },
+  {
+    "id": 3,
+    "title": "Sinnoh League Conference",
+    "date_timestamp": 1748817600000,
+    "location": "Lily of the Valley Island",
+    "image_url": "https://placehold.co/600x400/CCAAFF/000000/png?text=Sinnoh+League",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Semi-Finals"
+      }
+    ],
+    "is_featured": false
+  },
+  {
+    "id": 4,
+    "title": "Unova Grand Tourtitlent",
+    "date_timestamp": 1748904000000,
+    "location": "Nimbasa City Stadium",
+    "image_url": "https://placehold.co/600x400/FFAACC/000000/png?text=Unova+Grand",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Legendary Encounter (Exhibition)"
+      }
+    ],
+    "is_featured": true
+  },
+  {
+    "id": 5,
+    "title": "Kalos Showcase Spectacular",
+    "date_timestamp": 1748990400000,
+    "location": "Lumiose City Prism Tower",
+    "image_url": "https://placehold.co/600x400/AACCFF/000000/png?text=Kalos+Showcase",
+    "duels": [],
+    "is_featured": false
+  },
+  {
+    "id": 6,
+    "title": "Alola Battle Royal Dome",
+    "date_timestamp": 1749076800000,
+    "location": "Royal Avenue",
+    "image_url": "https://placehold.co/600x400/FFDDAA/000000/png?text=Alola+Battle",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Starter Showdown"
+      },
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Island Challenge Trial"
+      }
+    ],
+    "is_featured": true
+  },
+  {
+    "id": 7,
+    "title": "Galar Champion Cup Prelims",
+    "date_timestamp": 1748558400000,
+    "location": "Wyndon Stadium",
+    "image_url": "https://placehold.co/600x400/AAFFCC/000000/png?text=Galar+Cup",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Qualifier Round 1"
+      }
+    ],
+    "is_featured": false
+  },
+  {
+    "id": 8,
+    "title": "Paldea Treasure Hunt Rally",
+    "date_timestamp": 1748558400000,
+    "location": "Mesagoza Academy",
+    "image_url": "https://placehold.co/600x400/CCAAFF/000000/png?text=Paldea+Rally",
+    "duels": [],
+    "is_featured": false
+  },
+  {
+    "id": 9,
+    "title": "Legendary Pokémon Research Summit",
+    "date_timestamp": 1748558400000,
+    "location": "Professor Oak's Lab (Remote)",
+    "image_url": "https://placehold.co/600x400/FFAACC/000000/png?text=Research+Summit",
+    "duels": [
+      {
+        "pokemon1": 1,
+        "pokemon2": 2,
+        "description": "Research Observation (Simulated)"
+      }
+    ],
+    "is_featured": true
+  }
+]

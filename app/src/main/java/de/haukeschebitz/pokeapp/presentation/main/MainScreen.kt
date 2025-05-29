@@ -54,18 +54,15 @@ fun MainScreen(
                     ) {
                         state.featuredEvent?.let {
                             FeaturedEventSection(
-//                                modifier = Modifier.weight(4f),
                                 featuredEvent = state.featuredEvent,
                             )
                         }
 
                         EventsThisWeekSection(
-//                            modifier = Modifier.weight(3f),
                             events = state.events,
                         )
 
                         PopularPokemonSection(
-//                            modifier = Modifier.weight(3f),
                             popularPokemon = state.popularPokemon,
                         )
                     }
@@ -93,9 +90,7 @@ private fun EventsThisWeekSection(
     events: PersistentList<EventUiState>,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Center,
+        modifier = modifier,
     ) {
         Text(
             text = "Events this week",
@@ -146,6 +141,7 @@ private fun MainScreenError(
     state: MainScreenUiState.Error,
 ) {
     Column(
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
@@ -159,7 +155,7 @@ private fun MainScreenLoading(
     modifier: Modifier = Modifier,
 ) {
     Box(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
         CircularProgressIndicator()
