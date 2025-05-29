@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import de.haukeschebitz.pokeapp.common.Error
 import de.haukeschebitz.pokeapp.common.Result
 import de.haukeschebitz.pokeapp.domain.GetPopularPokemonUseCase
+import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -23,7 +24,7 @@ class MainScreenViewModel(
     private suspend fun loadData() {
         when (val result = getPopularPokemonUseCase.invoke()) {
             is Result.Success -> {
-                _uiState.value = MainScreenUiState.Success(result.data)
+                _uiState.value = MainScreenUiState.Success(result.data.toPersistentList())
             }
 
             is Result.Error -> {

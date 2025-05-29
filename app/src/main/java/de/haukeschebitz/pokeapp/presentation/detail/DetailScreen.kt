@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import de.haukeschebitz.pokeapp.domain.model.Duel
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
+import kotlinx.collections.immutable.persistentListOf
 
 @Composable
 fun DetailScreen(
@@ -36,7 +37,7 @@ fun DetailScreen(
 private fun DetailScreenPreview() {
     DetailScreen(
         state = DetailScreenUiState(
-            duels = listOf(
+            duels = persistentListOf(
                 Duel(Pokemon(id = 0, name = "Pikachu"), Pokemon(id = 1, name = "Pikachu")),
                 Duel(Pokemon(id = 2, name = "Pikachu"), Pokemon(id = 3, name = "Pikachu")),
                 Duel(Pokemon(id = 4, name = "Pikachu"), Pokemon(id = 5, name = "Pikachu")),

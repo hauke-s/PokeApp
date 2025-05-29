@@ -3,6 +3,7 @@ package de.haukeschebitz.pokeapp.data
 import de.haukeschebitz.pokeapp.domain.model.Duel
 import de.haukeschebitz.pokeapp.domain.model.Event
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
+import kotlinx.collections.immutable.persistentListOf
 
 interface EventLocalDataSource {
     val eventList: List<Event>
@@ -16,7 +17,7 @@ class MockEventLocalDataSourceImpl : EventLocalDataSource {
             dateTimestamp = 0,
             location = "Hamburg",
             imageUrl = "",
-            duels = listOf(
+            duels = persistentListOf(
                 Duel(Pokemon(0, "Pikachu"), Pokemon(1, "Pika")),
             ),
         ),
@@ -26,7 +27,7 @@ class MockEventLocalDataSourceImpl : EventLocalDataSource {
             dateTimestamp = 0,
             location = "Köln",
             imageUrl = "",
-            duels = listOf(
+            duels = persistentListOf(
                 Duel(Pokemon(0, "Relaxo"), Pokemon(1, "Pikachu")),
             ),
         )

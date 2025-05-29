@@ -16,6 +16,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
 import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
 import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItemUiState
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toPersistentList
 
 @Composable
 fun MainScreen(
@@ -50,7 +52,7 @@ fun MainScreen(
                                     title = it.name,
                                     imageUrl = it.imageUrl,
                                 )
-                            }
+                            }.toPersistentList()
                         )
                     }
                 }
@@ -109,7 +111,7 @@ private fun MainScreenErrorPreview() {
 private fun MainScreenPreview() {
     MainScreen(
         state = MainScreenUiState.Success(
-            popularPokemon = listOf(
+            popularPokemon = persistentListOf(
                 Pokemon(0, "Pikachu", imageUrl = ""),
             )
         ),

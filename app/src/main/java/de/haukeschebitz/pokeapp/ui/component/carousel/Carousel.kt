@@ -16,12 +16,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import kotlinx.collections.immutable.PersistentList
+import kotlinx.collections.immutable.persistentListOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Carousel(
     modifier: Modifier = Modifier,
-    items: List<CarouselItemUiState>,
+    items: PersistentList<CarouselItemUiState>,
 ) {
     HorizontalUncontainedCarousel(
         state = rememberCarouselState { items.count() },
@@ -62,7 +64,7 @@ private fun CarouselItemPreview() {
 @Composable
 private fun CarouselPreview() {
     Carousel(
-        items = listOf(
+        items = persistentListOf(
             CarouselItemUiState(title = "Pikachu", imageUrl = ""),
             CarouselItemUiState(title = "Pikachu", imageUrl = ""),
             CarouselItemUiState(title = "Pikachu", imageUrl = ""),
