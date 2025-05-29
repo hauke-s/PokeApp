@@ -12,10 +12,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
 import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
 import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItemUiState
+import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
+import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toPersistentList
 
@@ -26,7 +29,10 @@ fun MainScreen(
     actions: MainScreenActions,
 ) {
 
-    Surface(modifier = modifier.fillMaxSize()) {
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = Color.Black,
+    ) {
         when (state) {
             is MainScreenUiState.Loading -> MainScreenLoading(modifier)
             is MainScreenUiState.Error -> MainScreenError(modifier, state)
@@ -45,21 +51,34 @@ fun MainScreen(
                             Text("Show detail screen")
                         }
 
-                        Carousel(
-                            modifier = Modifier.fillMaxWidth(),
-                            items = state.popularPokemon.map {
-                                CarouselItemUiState(
-                                    title = it.name,
-                                    imageUrl = it.imageUrl,
-                                )
-                            }.toPersistentList()
-                        )
+                        PopularPokemonSection(state.popularPokemon)
                     }
                 }
             }
         }
     }
 
+}
+
+@Composable
+private fun PopularPokemonSection(
+    popularPokemon: PersistentList<Pokemon>,
+) {
+    Column {
+        Text(
+            text = "Popular Pokemon",
+            color = Color.White,
+        )
+        Carousel(
+            modifier = Modifier.fillMaxWidth(),
+            items = popularPokemon.map {
+                CarouselItemUiState(
+                    title = it.name,
+                    imageUrl = it.imageUrl,
+                )
+            }.toPersistentList()
+        )
+    }
 }
 
 @Composable
@@ -91,30 +110,36 @@ private fun MainScreenLoading(
 @Preview
 @Composable
 private fun MainScreenLoadingPreview() {
-    MainScreen(
-        state = MainScreenUiState.Loading,
-        actions = MainScreenActions(),
-    )
+    PokeAppTheme {
+        MainScreen(
+            state = MainScreenUiState.Loading,
+            actions = MainScreenActions(),
+        )
+    }
 }
 
 @Preview
 @Composable
 private fun MainScreenErrorPreview() {
-    MainScreen(
-        state = MainScreenUiState.Error(message = "Unknown error occurred"),
-        actions = MainScreenActions(),
-    )
+    PokeAppTheme {
+        MainScreen(
+            state = MainScreenUiState.Error(message = "Unknown error occurred"),
+            actions = MainScreenActions(),
+        )
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 private fun MainScreenPreview() {
-    MainScreen(
-        state = MainScreenUiState.Success(
-            popularPokemon = persistentListOf(
-                Pokemon(0, "Pikachu", imageUrl = ""),
-            )
-        ),
-        actions = MainScreenActions(),
-    )
+    PokeAppTheme {
+        MainScreen(
+            state = MainScreenUiState.Success(
+                popularPokemon = persistentListOf(
+                    Pokemon(0, "Pikachu", imageUrl = ""),
+                )
+            ),
+            actions = MainScreenActions(),
+        )
+    }
 }
