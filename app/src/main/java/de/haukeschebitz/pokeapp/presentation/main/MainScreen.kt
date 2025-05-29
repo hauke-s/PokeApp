@@ -1,13 +1,10 @@
 package de.haukeschebitz.pokeapp.presentation.main
 
-import androidx.compose.foundation.gestures.rememberScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
@@ -18,14 +15,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import de.haukeschebitz.pokeapp.domain.model.Event
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
-import de.haukeschebitz.pokeapp.domain.model.defaultEvent
 import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
 import de.haukeschebitz.pokeapp.ui.component.carousel.CarouselItemUiState
+import de.haukeschebitz.pokeapp.ui.component.carousel.EventCarousel
+import de.haukeschebitz.pokeapp.ui.component.featuredEvent.EventUiState
 import de.haukeschebitz.pokeapp.ui.component.featuredEvent.FeaturedEvent
-import de.haukeschebitz.pokeapp.ui.component.featuredEvent.toUiState
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
@@ -55,7 +50,7 @@ fun MainScreen(
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState()),
                         horizontalAlignment = Alignment.Start,
-                        verticalArrangement = Arrangement.SpaceBetween,
+                        verticalArrangement = Arrangement.Top,
                     ) {
                         state.featuredEvent?.let {
                             FeaturedEventSection(
@@ -84,19 +79,18 @@ fun MainScreen(
 @Composable
 fun FeaturedEventSection(
     modifier: Modifier = Modifier,
-    featuredEvent: Event,
+    featuredEvent: EventUiState,
 ) {
     FeaturedEvent(
         modifier = modifier,
-        state = featuredEvent.toUiState(),
+        state = featuredEvent,
     )
-
 }
 
 @Composable
 private fun EventsThisWeekSection(
     modifier: Modifier = Modifier,
-    events: PersistentList<Event>,
+    events: PersistentList<EventUiState>,
 ) {
     Column(
         modifier = modifier.fillMaxWidth(),
@@ -109,14 +103,9 @@ private fun EventsThisWeekSection(
         )
 
         if (events.isNotEmpty()) {
-            Carousel(
+            EventCarousel(
                 modifier = Modifier.fillMaxWidth(),
-                items = events.map {
-                    CarouselItemUiState(
-                        title = it.name,
-                        imageUrl = it.imageUrl,
-                    )
-                }.toPersistentList()
+                items = events,
             )
         } else {
             Text(
@@ -209,10 +198,10 @@ private fun MainScreenPreview() {
                     Pokemon(0, "Pikachu", imageUrl = ""),
                 ),
                 events = persistentListOf(
-                    defaultEvent.copy(id = 0),
-                    defaultEvent.copy(id = 1, name = "Event 1"),
+                    EventUiState(id = 0, title = "Event 1", date = "", location = "", imageUrl = ""),
+                    EventUiState(id = 0, title = "Event 1", date = "", location = "", imageUrl = ""),
                 ),
-                featuredEvent = defaultEvent.copy(id = 2, name = "Featured Event", isFeatured = true),
+                featuredEvent = EventUiState(id = 0, title = "Event 1", date = "", location = "", imageUrl = ""),
             ),
             actions = MainScreenActions(),
         )

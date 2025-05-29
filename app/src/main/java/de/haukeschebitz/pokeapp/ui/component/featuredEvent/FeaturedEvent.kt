@@ -94,21 +94,3 @@ private fun FeaturedEventPreview() {
         )
     }
 }
-
-data class EventUiState(
-    val id: Int,
-    val title: String,
-    val date: String,
-    val location: String,
-    val imageUrl: String,
-)
-
-fun Event.toUiState(): EventUiState {
-    return EventUiState(
-        id = id,
-        title = name,
-        date = dateTimestamp.toString(),
-        location = location,
-        imageUrl = imageUrl
-    )
-}

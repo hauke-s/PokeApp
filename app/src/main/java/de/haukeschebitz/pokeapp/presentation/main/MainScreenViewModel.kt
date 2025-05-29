@@ -7,6 +7,7 @@ import de.haukeschebitz.pokeapp.common.Result
 import de.haukeschebitz.pokeapp.domain.GetEventsThisWeekUseCase
 import de.haukeschebitz.pokeapp.domain.GetFeaturedEventUseCase
 import de.haukeschebitz.pokeapp.domain.GetPopularPokemonUseCase
+import de.haukeschebitz.pokeapp.ui.component.featuredEvent.toUiState
 import kotlinx.collections.immutable.toPersistentList
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -54,9 +55,9 @@ class MainScreenViewModel(
             _uiState.value = MainScreenUiState.Error(message)
         } else {
             _uiState.value = MainScreenUiState.Success(
-                featuredEvent = (fetchedFeaturedEvent as Result.Success).data,
+                featuredEvent = (fetchedFeaturedEvent as Result.Success).data?.toUiState(),
                 popularPokemon = (fetchedPokemon as Result.Success).data.toPersistentList(),
-                events = (fetchedEvents as Result.Success).data.toPersistentList()
+                events = (fetchedEvents as Result.Success).data.map { it.toUiState() }.toPersistentList()
             )
         }
 
