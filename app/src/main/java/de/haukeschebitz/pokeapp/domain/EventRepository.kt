@@ -6,7 +6,7 @@ import de.haukeschebitz.pokeapp.data.EventLocalDataSource
 import de.haukeschebitz.pokeapp.data.EventRemoteDataSource
 import de.haukeschebitz.pokeapp.domain.mapper.toDomain
 import de.haukeschebitz.pokeapp.domain.model.Event
-import de.haukeschebitz.pokeapp.network.ApiResponse
+import de.haukeschebitz.pokeapp.network.toResult
 
 interface EventRepository {
     suspend fun getEvent(eventId: Int): Event?
@@ -25,15 +25,14 @@ class EventRepositoryImpl(
     }
 
     override suspend fun getEventList(): Result<List<Event>, Error> {
-        return when (val result = remoteDataSource.fetchEvents()) {
-            is ApiResponse.Error -> Result.Error(Error.UnknownError(result.exception))
-            is ApiResponse.Success -> Result.Success(result.data.map { it.toDomain() })
-        }
-//        return localDataSource.eventList
+        return remoteDataSource.fetchEvents()
+            .toResult { it.map { it.toDomain() } }
     }
 
     override suspend fun getFeaturedEvent(): Event? {
-        return localDataSource.eventList.firstOrNull { it.isFeatured }
+        return localDataSource.eventList
+            .filter { it.isFeatured }
+            .minByOrNull { it.dateTimestamp }
     }
 
 }

@@ -1,5 +1,8 @@
 package de.haukeschebitz.pokeapp.network
 
+import de.haukeschebitz.pokeapp.common.Error
+import de.haukeschebitz.pokeapp.common.Result
+
 sealed class ApiResponse<out T> {
 
     data class Success<out T>(val data: T) : ApiResponse<T>()
@@ -29,7 +32,7 @@ inline fun <T> ApiResponse<T>.onFailure(action: (exception: Exception, message: 
 
 inline fun <T, R> ApiResponse<T>.fold(
     onSuccess: (data: T) -> R,
-    onFailure: (exception: Exception, message: String?) -> R
+    onFailure: (exception: Exception, message: String?) -> R,
 ): R {
     return when (this) {
         is ApiResponse.Success -> onSuccess(this.data)
@@ -37,3 +40,19 @@ inline fun <T, R> ApiResponse<T>.fold(
     }
 }
 
+inline fun <T, D> ApiResponse<T>.toResult(
+    transform: (dto: T) -> D,
+): Result<D, Error> {
+    return when (this) {
+        is ApiResponse.Success -> {
+            try {
+                val domainModel = transform(this.data)
+                Result.Success(domainModel)
+            } catch (e: Exception) {
+                Result.Error(Error.UnknownError(e))
+            }
+        }
+
+        is ApiResponse.Error -> Result.Error(Error.UnknownError(this.exception))
+    }
+}
