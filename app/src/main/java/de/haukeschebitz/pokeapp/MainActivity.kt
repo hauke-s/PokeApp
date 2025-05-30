@@ -5,7 +5,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -38,6 +37,7 @@ class MainActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
 
                     NavDisplay(
+                        modifier = Modifier.fillMaxSize(),
                         backStack = backstack,
                         onBack = { backstack.removeLastOrNull() },
                         entryDecorators = listOf(
@@ -49,7 +49,6 @@ class MainActivity : ComponentActivity() {
                                 val mainScreenViewModel: MainScreenViewModel by viewModel()
                                 val state = mainScreenViewModel.uiState.collectAsStateWithLifecycle().value
                                 MainScreen(
-                                    modifier = Modifier.padding(innerPadding),
                                     state = state,
                                     actions = MainScreenActions(
                                         onShowDetailScreen = {

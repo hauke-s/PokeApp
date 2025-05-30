@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +36,7 @@ fun MainScreen(
 
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = Color.Black,
+        color = MaterialTheme.colorScheme.background,
     ) {
         when (state) {
             is MainScreenUiState.Loading -> MainScreenLoading(modifier)
@@ -46,7 +47,7 @@ fun MainScreen(
                     contentAlignment = Alignment.Center,
                 ) {
                     Column(
-                        modifier = modifier
+                        modifier = Modifier
                             .fillMaxSize()
                             .verticalScroll(rememberScrollState()),
                         horizontalAlignment = Alignment.Start,

@@ -22,13 +22,13 @@
     "image_url": "https://placehold.co/600x400/FFDDAA/000000/png?text=Johto+Festival",
     "duels": [
       {
-        "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon1": 2,
+        "pokemon2": 4,
         "description": "Rookie Challenge"
       },
       {
-        "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon1": 6,
+        "pokemon2": 8,
         "description": "Eeveelution Showcase"
       }
     ],
@@ -51,7 +51,7 @@
     "image_url": "https://placehold.co/600x400/CCAAFF/000000/png?text=Sinnoh+League",
     "duels": [
       {
-        "pokemon1": 1,
+        "pokemon1": 3,
         "pokemon2": 2,
         "description": "Semi-Finals"
       }
@@ -66,8 +66,8 @@
     "image_url": "https://placehold.co/600x400/FFAACC/000000/png?text=Unova+Grand",
     "duels": [
       {
-        "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon1": 15,
+        "pokemon2": 9,
         "description": "Legendary Encounter (Exhibition)"
       }
     ],
@@ -90,13 +90,13 @@
     "image_url": "https://placehold.co/600x400/FFDDAA/000000/png?text=Alola+Battle",
     "duels": [
       {
-        "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon1": 2,
+        "pokemon2": 5,
         "description": "Starter Showdown"
       },
       {
-        "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon1": 3,
+        "pokemon2": 1,
         "description": "Island Challenge Trial"
       }
     ],
@@ -111,7 +111,7 @@
     "duels": [
       {
         "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon2": 7,
         "description": "Qualifier Round 1"
       }
     ],
@@ -134,8 +134,8 @@
     "image_url": "https://placehold.co/600x400/FFAACC/000000/png?text=Research+Summit",
     "duels": [
       {
-        "pokemon1": 1,
-        "pokemon2": 2,
+        "pokemon1": 6,
+        "pokemon2": 3,
         "description": "Research Observation (Simulated)"
       }
     ],

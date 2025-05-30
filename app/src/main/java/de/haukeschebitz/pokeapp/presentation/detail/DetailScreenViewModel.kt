@@ -39,7 +39,7 @@ class DetailScreenViewModel(
             is Result.Error -> TODO()
             is Result.Success -> {
                 event.data?.duels?.let { duels ->
-                    _uiState.update { it.copy(duels = duels.toPersistentList()) }
+                    _uiState.update { it.copy(duels = duels.map { it.toUiState() }.toPersistentList()) }
                 }
             }
         }
