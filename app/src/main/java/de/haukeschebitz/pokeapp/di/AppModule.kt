@@ -1,5 +1,7 @@
 package de.haukeschebitz.pokeapp.di
 
+import de.haukeschebitz.pokeapp.common.SessionStateHolder
+import de.haukeschebitz.pokeapp.common.SessionStateHolderImpl
 import de.haukeschebitz.pokeapp.data.EventLocalDataSource
 import de.haukeschebitz.pokeapp.data.EventRemoteDataSource
 import de.haukeschebitz.pokeapp.data.MockEventLocalDataSourceImpl
@@ -16,11 +18,7 @@ import de.haukeschebitz.pokeapp.domain.PokemonRepository
 import de.haukeschebitz.pokeapp.domain.PokemonRepositoryImpl
 import de.haukeschebitz.pokeapp.presentation.detail.DetailScreenViewModel
 import de.haukeschebitz.pokeapp.presentation.main.MainScreenViewModel
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
-import org.koin.core.module.dsl.viewModel
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
 
@@ -37,7 +35,6 @@ val appModule = module {
             localDataSource = get(),
             remoteDataSource = get(),
             pokemonRepository = get(),
-            coroutineScope = CoroutineScope(Dispatchers.Default + SupervisorJob()),
         )
     }
 
@@ -62,13 +59,9 @@ val appModule = module {
         )
     }
 
-    viewModelOf(::MainScreenViewModel)
+    single<SessionStateHolder> { SessionStateHolderImpl() }
 
-    viewModel {
-        DetailScreenViewModel(
-            eventId = get(),
-            eventRepository = get(),
-        )
-    }
+    viewModelOf(::MainScreenViewModel)
+    viewModelOf(::DetailScreenViewModel)
 
 }

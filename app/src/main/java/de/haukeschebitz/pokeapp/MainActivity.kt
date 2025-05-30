@@ -9,9 +9,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.navigation3.rememberViewModelStoreNavEntryDecorator
 import androidx.navigation3.runtime.entry
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.runtime.rememberSavedStateNavEntryDecorator
 import androidx.navigation3.ui.NavDisplay
 import de.haukeschebitz.pokeapp.presentation.detail.DetailScreen
 import de.haukeschebitz.pokeapp.presentation.detail.DetailScreenViewModel
@@ -38,6 +40,10 @@ class MainActivity : ComponentActivity() {
                     NavDisplay(
                         backStack = backstack,
                         onBack = { backstack.removeLastOrNull() },
+                        entryDecorators = listOf(
+                            rememberSavedStateNavEntryDecorator(),
+                            rememberViewModelStoreNavEntryDecorator()
+                        ),
                         entryProvider = entryProvider {
                             entry<Route.Main> {
                                 val mainScreenViewModel: MainScreenViewModel by viewModel()
@@ -46,7 +52,10 @@ class MainActivity : ComponentActivity() {
                                     modifier = Modifier.padding(innerPadding),
                                     state = state,
                                     actions = MainScreenActions(
-                                        onShowDetailScreen = { backstack.add(Route.Detail(it)) }
+                                        onShowDetailScreen = {
+                                            mainScreenViewModel.onShowDetailScreen(it)
+                                            backstack.add(Route.Detail(it))
+                                        }
                                     )
                                 )
                             }
@@ -54,8 +63,10 @@ class MainActivity : ComponentActivity() {
                             entry<Route.Detail> {
                                 val detailScreenViewModel: DetailScreenViewModel by viewModel { parametersOf(it.eventId) }
                                 val state = detailScreenViewModel.uiState.collectAsStateWithLifecycle().value
-
-                                DetailScreen(state = state)
+                                DetailScreen(
+                                    state = state,
+                                    onScreenShown = { detailScreenViewModel.onScreenShown() }
+                                )
                             }
                         },
                     )

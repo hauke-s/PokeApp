@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import de.haukeschebitz.pokeapp.common.Error
 import de.haukeschebitz.pokeapp.common.Result
+import de.haukeschebitz.pokeapp.common.SessionStateHolder
 import de.haukeschebitz.pokeapp.domain.GetEventsForCurrentWeekUseCase
 import de.haukeschebitz.pokeapp.domain.GetFeaturedEventUseCase
 import de.haukeschebitz.pokeapp.domain.GetPopularPokemonUseCase
@@ -20,6 +21,7 @@ class MainScreenViewModel(
     private val getFeaturedEventUseCase: GetFeaturedEventUseCase,
     private val getPopularPokemonUseCase: GetPopularPokemonUseCase,
     private val getEventsForCurrentWeekUseCase: GetEventsForCurrentWeekUseCase,
+    private val sessionStateHolder: SessionStateHolder,
 ) : ViewModel() {
 
     private val _uiState: MutableStateFlow<MainScreenUiState> = MutableStateFlow(MainScreenUiState.Loading)
@@ -61,5 +63,9 @@ class MainScreenViewModel(
             )
         }
 
+    }
+
+    fun onShowDetailScreen(eventId: Int) {
+        sessionStateHolder.updateSelectedEvent(eventId)
     }
 }

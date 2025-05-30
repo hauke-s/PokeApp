@@ -21,11 +21,3 @@ fun EventDto.toDomain(pokemonMap: Map<Int, Pokemon>): Event {
         isFeatured = isFeatured,
     )
 }
-
-//fun DuelDto.toDomain(): Duel {
-//    return Duel(
-//        pokemon1 = pokemon1,
-//        pokemon2 = pokemon2,
-//        description = description,
-//    )
-//}

@@ -55,11 +55,13 @@ fun MainScreen(
                         state.featuredEvent?.let {
                             FeaturedEventSection(
                                 featuredEvent = state.featuredEvent,
+                                onShowEventDetails = { actions.onShowDetailScreen(it) },
                             )
                         }
 
                         EventsThisWeekSection(
                             events = state.events,
+                            onShowEventDetails = { actions.onShowDetailScreen(it) },
                         )
 
                         PopularPokemonSection(
@@ -77,10 +79,12 @@ fun MainScreen(
 fun FeaturedEventSection(
     modifier: Modifier = Modifier,
     featuredEvent: EventUiState,
+    onShowEventDetails: (eventId: Int) -> Unit,
 ) {
     FeaturedEvent(
         modifier = modifier,
         state = featuredEvent,
+        onShowEventDetails = onShowEventDetails,
     )
 }
 
@@ -88,6 +92,7 @@ fun FeaturedEventSection(
 private fun EventsThisWeekSection(
     modifier: Modifier = Modifier,
     events: PersistentList<EventUiState>,
+    onShowEventDetails: (eventId: Int) -> Unit,
 ) {
     Column(
         modifier = modifier,
@@ -101,6 +106,7 @@ private fun EventsThisWeekSection(
             EventCarousel(
                 modifier = Modifier.fillMaxWidth(),
                 items = events,
+                onShowEventDetails = onShowEventDetails,
             )
         } else {
             Text(

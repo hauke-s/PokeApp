@@ -1,5 +1,6 @@
 package de.haukeschebitz.pokeapp.ui.component.carousel
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -33,6 +34,7 @@ import kotlinx.collections.immutable.persistentListOf
 fun EventCarousel(
     modifier: Modifier = Modifier,
     items: PersistentList<EventUiState>,
+    onShowEventDetails: (eventId: Int) -> Unit,
 ) {
     HorizontalUncontainedCarousel(
         state = rememberCarouselState { items.count() },
@@ -43,7 +45,10 @@ fun EventCarousel(
         itemWidth = 120.dp,
         itemSpacing = 8.dp,
     ) { index ->
-        EventCarouselItem(state = items[index])
+        EventCarouselItem(
+            state = items[index],
+            onShowEventDetails = onShowEventDetails,
+        )
     }
 }
 
@@ -51,9 +56,12 @@ fun EventCarousel(
 private fun EventCarouselItem(
     modifier: Modifier = Modifier,
     state: EventUiState,
+    onShowEventDetails: (eventId: Int) -> Unit,
 ) {
     Column(
-        modifier = modifier.fillMaxWidth()
+        modifier = modifier
+            .fillMaxWidth()
+            .clickable { onShowEventDetails(state.id) }
     ) {
         Card(
             modifier = modifier.aspectRatio(1f),
@@ -108,6 +116,7 @@ private fun CarouselItemPreview() {
                 location = "",
                 imageUrl = "",
             ),
+            onShowEventDetails = { },
         )
     }
 }
@@ -124,7 +133,8 @@ private fun CarouselPreview() {
                 EventUiState(id = 3, title = "Event 4", date = "", location = "", imageUrl = ""),
                 EventUiState(id = 4, title = "Event 5", date = "", location = "", imageUrl = ""),
                 EventUiState(id = 5, title = "Event 6", date = "", location = "", imageUrl = ""),
-            )
+            ),
+            onShowEventDetails = { },
         )
     }
 }
