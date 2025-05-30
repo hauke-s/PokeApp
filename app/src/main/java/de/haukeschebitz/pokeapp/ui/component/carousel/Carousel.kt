@@ -1,5 +1,6 @@
 package de.haukeschebitz.pokeapp.ui.component.carousel
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
@@ -17,13 +17,13 @@ import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import de.haukeschebitz.pokeapp.ui.theme.PokeAppTheme
 import kotlinx.collections.immutable.PersistentList
 import kotlinx.collections.immutable.persistentListOf
+import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -53,9 +53,6 @@ private fun CarouselItem(
         modifier = modifier
             .aspectRatio(1f),
         shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.DarkGray
-        ),
     ) {
         Column(
             modifier = Modifier
@@ -70,16 +67,14 @@ private fun CarouselItem(
                 contentDescription = null,
             )
 
-            Text(
-                text = state.title.capitalize(),
-                color = Color.White
-            )
+            Text(text = state.title.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() })
         }
 
     }
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun CarouselItemPreview() {
     PokeAppTheme {
@@ -87,7 +82,8 @@ private fun CarouselItemPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun CarouselPreview() {
     PokeAppTheme {

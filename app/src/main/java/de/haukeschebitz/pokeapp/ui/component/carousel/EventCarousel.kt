@@ -1,5 +1,6 @@
 package de.haukeschebitz.pokeapp.ui.component.carousel
 
+import android.content.res.Configuration
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -9,15 +10,14 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -66,9 +66,6 @@ private fun EventCarouselItem(
         Card(
             modifier = modifier.aspectRatio(1f),
             shape = RoundedCornerShape(8.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.DarkGray
-            ),
         ) {
             AsyncImage(
                 model = state.imageUrl,
@@ -83,20 +80,19 @@ private fun EventCarouselItem(
         ) {
             Text(
                 text = state.title,
-                color = Color.White,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis,
             )
             Text(
                 text = state.date,
                 fontSize = 12.sp,
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onBackground,
                 maxLines = 1,
             )
             Text(
                 text = state.location,
                 fontSize = 12.sp,
-                color = Color.Gray,
+                color = MaterialTheme.colorScheme.onBackground,
                 maxLines = 1,
             )
         }
@@ -105,6 +101,7 @@ private fun EventCarouselItem(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun CarouselItemPreview() {
     PokeAppTheme {
@@ -122,6 +119,7 @@ private fun CarouselItemPreview() {
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun CarouselPreview() {
     PokeAppTheme {

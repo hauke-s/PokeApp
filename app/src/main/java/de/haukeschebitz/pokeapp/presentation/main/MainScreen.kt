@@ -1,5 +1,6 @@
 package de.haukeschebitz.pokeapp.presentation.main
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import de.haukeschebitz.pokeapp.domain.model.Pokemon
 import de.haukeschebitz.pokeapp.ui.component.carousel.Carousel
@@ -100,7 +100,7 @@ private fun EventsThisWeekSection(
     ) {
         Text(
             text = "Events this week",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
 
         if (events.isNotEmpty()) {
@@ -112,7 +112,7 @@ private fun EventsThisWeekSection(
         } else {
             Text(
                 text = "No events scheduled for this week",
-                color = Color.White,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
     }
@@ -128,7 +128,7 @@ private fun PopularPokemonSection(
     ) {
         Text(
             text = "Popular Pokemon",
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onBackground,
         )
         Carousel(
             modifier = Modifier.fillMaxWidth(),
@@ -165,11 +165,14 @@ private fun MainScreenLoading(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center,
     ) {
-        CircularProgressIndicator()
+        CircularProgressIndicator(
+            color = MaterialTheme.colorScheme.primary
+        )
     }
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MainScreenLoadingPreview() {
     PokeAppTheme {
@@ -181,6 +184,7 @@ private fun MainScreenLoadingPreview() {
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MainScreenErrorPreview() {
     PokeAppTheme {
@@ -191,7 +195,8 @@ private fun MainScreenErrorPreview() {
     }
 }
 
-@Preview(showBackground = true)
+@Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 private fun MainScreenPreview() {
     PokeAppTheme {
@@ -199,10 +204,12 @@ private fun MainScreenPreview() {
             state = MainScreenUiState.Success(
                 popularPokemon = persistentListOf(
                     Pokemon(0, "Pikachu", imageUrl = ""),
+                    Pokemon(1, "Bulbasaur", imageUrl = ""),
+                    Pokemon(2, "Charmander", imageUrl = ""),
                 ),
                 events = persistentListOf(
-                    EventUiState(id = 0, title = "Event 1", date = "", location = "", imageUrl = ""),
-                    EventUiState(id = 0, title = "Event 1", date = "", location = "", imageUrl = ""),
+                    EventUiState(id = 0, title = "Event 1", date = "01. Jan", location = "Hamburg", imageUrl = ""),
+                    EventUiState(id = 0, title = "Event 1", date = "24. Oct", location = "Köln", imageUrl = ""),
                 ),
                 featuredEvent = EventUiState(id = 0, title = "Event 1", date = "", location = "", imageUrl = ""),
             ),
